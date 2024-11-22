@@ -18,6 +18,8 @@ No tienes idea qu√© ejercicios hacer en casa o el gym, con RoutinePro te ayudar√
 
 **API:** Gemini
 
+**Packages:** [file_picker: ^8.1.4](https://pub.dev/packages/file_picker),  [google_generative_ai: ^0.4.6](https://pub.dev/packages/google_generative_ai)
+
 
 ## Deployment
 
