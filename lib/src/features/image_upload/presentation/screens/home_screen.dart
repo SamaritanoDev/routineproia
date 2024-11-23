@@ -1,8 +1,13 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:routineproia/src/common_widgets/image_custom.dart';
 import 'package:routineproia/src/common_widgets/loading_custom.dart';
 import 'package:routineproia/src/constants/constants.dart';
+import 'package:routineproia/src/features/custom_routine/data/models/custom_routine_model.dart';
+import 'package:routineproia/src/features/image_upload/data/models/image_upload_model.dart';
 import 'package:routineproia/src/features/image_upload/presentation/widgets/option_custom.dart';
+import 'package:routineproia/src/features/image_upload/services/personalization_routine_instruction.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,6 +18,30 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool isLoading = false;
+  List<CustomRoutineModel> contentOptions = [];
+  final ImageUpload imageUpload = ImageUpload(fileBytes: Uint8List(0));
+
+  void _handleSelectPhoto() async {
+    ///obtener foto de la galeria con FilePicker
+    //si el usuario selecciona una imagen
+
+    ///esperamos que se genere el contenido personalizado
+    await _getCustomRoutine(imageUpload.fileBytes);
+    //si el usuario no selecciona una foto
+    //nada
+  }
+
+  Future<void> _getCustomRoutine(Uint8List imageBytes) async {
+    setState(() {
+      isLoading = true;
+    });
+
+//Creamos una instancia de PersonalizationRoutineInstruction y lo alamacenamos en callPromt
+    final PersonalizationRoutineInstruction callPromt =
+        PersonalizationRoutineInstruction();
+
+    // Navegar a la pantalla CustomRoutineScreen con los bytes de la imagen
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   OptionCustom(
                     icon: Icons.photo,
                     label: 'Escoger de Galeria',
-                    onPressed: () {},
+                    onPressed: _handleSelectPhoto,
                   ),
                   const SizedBox(width: 80),
                   OptionCustom(
