@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:routineproia/src/common_widgets/common_widgets.dart';
 import 'package:routineproia/src/constants/constants.dart';
 import 'package:routineproia/src/features/custom_routine/data/models/custom_routine_model.dart';
+import 'package:routineproia/src/features/custom_routine/presentation/widgets/image_preview.dart';
 import 'package:routineproia/src/features/custom_routine/services/generated_routine_instruction.dart';
 import 'package:routineproia/src/features/generate_routine/data/models/routine.dart';
 
