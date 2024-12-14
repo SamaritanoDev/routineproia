@@ -22,30 +22,17 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool isLoading = false;
-  List<CustomRoutineModel> contentOptions =
-      []; //almacenar la info que nos api de gemini
+  List<CustomRoutineModel> contentOptions = []; //almacenar la info que nos api de gemini
   final ImageUpload imageUpload = ImageUpload(
     fileBytes: Uint8List(0),
   ); //almacenar la info en bytes de la imagen
 
   void _handleSelectPhoto() async {
     ///obtener foto de la galeria con FilePicker
-    final result = await FilePicker.platform.pickFiles(type: FileType.image);
+    
 
     //si el usuario selecciona una imagen
-    if (result != null) {
-      final file = result.files.first;
-      final imageBytes = await getImageBytes(file);
-
-      if (imageBytes != null) {
-        setState(() {
-          imageUpload.fileBytes = imageBytes;
-        });
-      }
-    } else {
-      print("Los bytes son nulos");
-    }
-
+    
     ///esperamos que se genere el contenido personalizado
     await _getCustomRoutine(imageUpload.fileBytes);
     //si el usuario no selecciona una foto
@@ -58,21 +45,14 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
 //Creamos una instancia de PersonalizationRoutineInstruction y lo alamacenamos en callPromt
-    final PersonalizationRoutineInstruction callPromt =
-        PersonalizationRoutineInstruction();
+   
     try {
       //crear el contenido
-      final result = await callPromt.getContendCustomRoutine(imageBytes);
 
       //decodificacion del json
-      final List<dynamic> jsonData = jsonDecode(result);
 
       //actualizar la variable contentOptions
-      setState(() {
-        contentOptions =
-            jsonData.map((item) => CustomRoutineModel.fromJson(item)).toList();
-        isLoading = false;
-      });
+      
 
       if (!mounted) return;
       // Navegar a la pantalla de vista previa con los bytes de la imagen
@@ -88,15 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
       print("error: $e");
     }
 
-    // Navegar a la pantalla CustomRoutineScreen con los bytes de la imagen
-    Navigator.push(context, MaterialPageRoute(
-      builder: (context) {
-        return CustomRoutineScreen(
-          contentOptions: contentOptions,
-          imageBytes: imageBytes,
-        );
-      },
-    ));
   }
 
   @override

@@ -8,9 +8,9 @@ environment:
 
 dependencies:
   file_picker: ^8.1.4
-  google_generative_ai: ^0.4.6
   flutter:
     sdk: flutter
+  google_generative_ai: ^0.4.6
 
 dev_dependencies:
   flutter_lints: ^4.0.0

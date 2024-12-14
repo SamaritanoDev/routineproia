@@ -4,7 +4,7 @@ import 'package:routineproia/src/constants/constants.dart';
 
 class PersonalizationRoutineInstruction {
   ///crear el promt, inputs: texto (instruccion) y la foto (byets)
-  Future<String> getContendCustomRoutine(Uint8List imageBytes) async {
+  Future<void> getContendCustomRoutine(Uint8List imageBytes) async {
     //crea una instancia del modelo de IA Gemini, usando el modelo gemini-1.5-flash y sin generationConfig
     final model = GenerativeModel(
       model: 'gemini-1.5-flash',
@@ -21,19 +21,8 @@ class PersonalizationRoutineInstruction {
         'Return: Array<CustomRoutineModel>');
 
     // crea el DataPart usando los bytes: la imagen se envía como una parte de los datos
-    final imageDataPart = [
-      DataPart('image/png', imageBytes),
-    ];
+
     //Respuesta del gemini: se envía tanto el prompt como los datos de la imagen a la API de Gemini
-    final response = await model.generateContent([
-      Content.multi([prompt, ...imageDataPart])
-    ]);
-
-    final cleanedResponseGemini = _cleanReponseGemini(response.text!);
-
-    print("cleanedResponseGemini: $cleanedResponseGemini");
-
-    return cleanedResponseGemini;
   }
 
   String _cleanReponseGemini(String response) {
